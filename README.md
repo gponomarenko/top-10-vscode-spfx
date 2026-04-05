@@ -15,10 +15,16 @@ A simple static website listing the top 10 Visual Studio Code extensions every S
 
 ## Publishing with GitHub Pages
 
+The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically builds and deploys the site to GitHub Pages on every push to `main`.
+
+### One-time setup
+
 1. Go to **Settings → Pages** in this repository.
-2. Under **Source**, select the branch `main` and the root folder `/`.
-3. Click **Save**.  
-   Your site will be available at `https://<username>.github.io/top-10-vscode-spfx/`.
+2. Under **Source**, select **GitHub Actions**.
+3. Push to `main` (or trigger the workflow manually) — your site will be live at  
+   `https://<username>.github.io/top-10-vscode-spfx/`.
+
+> The workflow also has a **workflow_dispatch** trigger so you can deploy manually from the **Actions** tab at any time.
 
 ## Local preview
 
