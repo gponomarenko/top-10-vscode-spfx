@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 10 VS Code Extensions for SPFx Development</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --surface: #111827;
+    --surface2: #1a2332;
+    --surface3: #1e2d45;
+    --border: #1e3a5f;
+    --accent: #0078d4;
+    --accent2: #00bcf2;
+    --accent3: #50e6ff;
+    --green: #00cc6a;
+    --yellow: #ffd700;
+    --red: #ff4757;
+    --purple: #a855f7;
+    --text: #e8edf5;
+    --text2: #8a9ab5;
+    --text3: #526070;
+    --mono: 'JetBrains Mono', monospace;
+    --head: 'Syne', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #060c18 0%, #0a1628 40%, #0d1f3c 70%, #0a1628 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(ellipse, rgba(0,120,212,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 10%;
+    width: 300px; height: 300px;
+    background: radial-gradient(ellipse, rgba(0,188,242,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent3);
+    border: 1px solid rgba(80,230,255,0.3); border-radius: 4px;
+    padding: 5px 12px; margin-bottom: 24px;
+    background: rgba(0,188,242,0.06);
+  }
+  .hero-tag::before { content: '▸'; opacity: 0.7; }
+  .hero h1 {
+    font-family: var(--head);
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #a0c4f1 60%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 16px; color: var(--text2); max-width: 680px;
+    line-height: 1.7; margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .meta-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text3);
+  }
+  .meta-val {
+    font-family: var(--mono); font-size: 13px; color: var(--accent3); font-weight: 700;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    padding: 0 40px;
+    overflow-x: auto;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-tab {
+    padding: 14px 22px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.5px;
+    color: var(--text3); cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s; white-space: nowrap;
+    text-decoration: none; display: block;
+  }
+  .nav-tab:hover { color: var(--text2); }
+  .nav-tab.active { color: var(--accent3); border-bottom-color: var(--accent3); }
+
+  /* SECTIONS */
+  .section { padding: 48px 40px; }
+  .section + .section { border-top: 1px solid var(--border); }
+
+  .section-head {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 32px;
+  }
+  .section-num {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 4px 8px; letter-spacing: 1px;
+  }
+  .section-title {
+    font-family: var(--head); font-size: 22px; font-weight: 700;
+    color: var(--text);
+  }
+
+  /* EXTENSION CARDS GRID */
+  .ext-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .ext-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .ext-card:hover {
+    border-color: rgba(0,120,212,0.5);
+    box-shadow: 0 0 30px rgba(0,120,212,0.1);
+  }
+  .ext-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .ext-card.tier-1::before { background: linear-gradient(90deg, var(--accent), var(--accent3)); }
+  .ext-card.tier-2::before { background: linear-gradient(90deg, var(--green), #00ff88); }
+  .ext-card.tier-3::before { background: linear-gradient(90deg, var(--purple), #c084fc); }
+  .ext-card.tier-4::before { background: linear-gradient(90deg, var(--yellow), #ffed4e); }
+
+  .ext-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .ext-num {
+    font-family: var(--mono); font-size: 10px; color: var(--text3);
+    background: var(--surface2); border-radius: 3px; padding: 3px 7px;
+  }
+  .ext-badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 20px; text-transform: uppercase;
+  }
+  .badge-core { background: rgba(0,120,212,0.15); color: var(--accent2); border: 1px solid rgba(0,120,212,0.3); }
+  .badge-pnp { background: rgba(0,204,106,0.12); color: var(--green); border: 1px solid rgba(0,204,106,0.3); }
+  .badge-rencore { background: rgba(168,85,247,0.12); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+  .badge-ms { background: rgba(0,188,242,0.12); color: var(--accent3); border: 1px solid rgba(0,188,242,0.3); }
+  .badge-util { background: rgba(255,215,0,0.12); color: var(--yellow); border: 1px solid rgba(255,215,0,0.3); }
+
+  .ext-name {
+    font-family: var(--head); font-size: 16px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+  }
+  .ext-publisher {
+    font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 12px;
+  }
+  .ext-desc {
+    font-size: 13.5px; color: var(--text2); line-height: 1.6; margin-bottom: 16px;
+  }
+  .ext-features {
+    list-style: none; margin-bottom: 16px;
+  }
+  .ext-features li {
+    font-size: 13px; color: var(--text2); padding: 3px 0;
+    display: flex; align-items: flex-start; gap: 7px;
+  }
+  .ext-features li::before {
+    content: '→'; color: var(--accent); font-size: 11px; margin-top: 3px; flex-shrink: 0;
+  }
+  .ext-meta {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    padding: 12px; background: var(--surface2); border-radius: 7px;
+    margin-bottom: 14px;
+  }
+  .ext-meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .ext-meta-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; color: var(--text3); text-transform: uppercase; }
+  .ext-meta-val { font-family: var(--mono); font-size: 12px; color: var(--text); font-weight: 700; }
+
+  .stars { color: var(--yellow); letter-spacing: 1px; font-size: 12px; }
+
+  .cmd-block {
+    background: #060b13;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent3);
+    word-break: break-all;
+    position: relative;
+  }
+  .cmd-label {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text3); margin-bottom: 5px;
+  }
+  .cmd-prefix { color: var(--text3); }
+
+  /* COMPARISON TABLE */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  table {
+    width: 100%; border-collapse: collapse;
+    min-width: 900px;
+  }
+  thead tr {
+    background: var(--surface2);
+  }
+  thead th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text3);
+    padding: 14px 16px; text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(30,58,95,0.4);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(0,120,212,0.05); }
+  tbody td {
+    padding: 12px 16px; font-size: 13px; vertical-align: middle;
+  }
+  .td-name { font-family: var(--head); font-weight: 700; font-size: 13px; color: var(--text); white-space: nowrap; }
+  .td-id { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+  .td-version { font-family: var(--mono); font-size: 12px; color: var(--accent2); }
+  .check { color: var(--green); font-size: 14px; }
+  .cross { color: var(--text3); font-size: 14px; }
+  .use-case { font-size: 12px; color: var(--text2); max-width: 200px; }
+
+  /* SETUP GUIDE */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex; gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(30,58,95,0.4);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-left { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+  .step-num-circle {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--head); font-weight: 800; font-size: 15px; color: #fff;
+    flex-shrink: 0;
+  }
+  .step-line {
+    width: 1px; flex: 1; min-height: 20px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    margin-top: 6px;
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-family: var(--head); font-size: 17px; font-weight: 700;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .step-desc { font-size: 14px; color: var(--text2); margin-bottom: 14px; line-height: 1.7; }
+  .code-block {
+    background: #060b13; border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+    font-family: var(--mono); font-size: 12.5px;
+    color: var(--text); line-height: 1.8;
+    margin-bottom: 12px; overflow-x: auto;
+  }
+  .code-block .c { color: var(--text3); }
+  .code-block .k { color: var(--accent3); }
+  .code-block .s { color: #7ec8e3; }
+  .code-block .v { color: var(--green); }
+  .tip-box {
+    background: rgba(0,120,212,0.08);
+    border: 1px solid rgba(0,120,212,0.25);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 13px; color: var(--text2);
+  }
+  .tip-box strong { color: var(--accent2); }
+  .warn-box {
+    background: rgba(255,215,0,0.06);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 6px 6px 0;
+    padding: 10px 14px;
+    font-size: 13px; color: var(--text2);
+  }
+  .warn-box strong { color: var(--yellow); }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 9px; border-radius: 3px;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-left { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+  .footer-right { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  @media (max-width: 700px) {
+    .hero, .section, .nav-tabs { padding-left: 20px; padding-right: 20px; }
+    .ext-grid { grid-template-columns: 1fr; }
+    .step { flex-direction: column; gap: 12px; }
+    .step-line { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">VS Code · SharePoint Framework · Developer Reference</div>
+  <h1>Top 10 VS Code Extensions<br>for SPFx Development</h1>
+  <p class="hero-sub">
+    A comprehensive comparison guide covering features, install commands, versions, ratings, and use cases for every essential extension — plus a step-by-step setup guide for new SPFx projects in 2026.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Updated</span>
+      <span class="meta-val">April 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Extensions covered</span>
+      <span class="meta-val">10</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">SPFx Target</span>
+      <span class="meta-val">v1.20+</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Node.js Required</span>
+      <span class="meta-val">18.x LTS</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-tabs">
+  <a class="nav-tab active" href="#extensions">Extensions</a>
+  <a class="nav-tab" href="#comparison">Comparison Table</a>
+  <a class="nav-tab" href="#setup">Setup Guide</a>
+</nav>
+
+<!-- SECTION 1: EXTENSION CARDS -->
+<div class="section" id="extensions">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <span class="section-title">Extension Deep-Dives</span>
+  </div>
+
+  <div class="ext-grid">
+
+    <!-- 1. SPFx Toolkit -->
+    <div class="ext-card tier-1">
+      <div class="ext-header">
+        <span class="ext-num">#01</span>
+        <span class="ext-badge badge-pnp">PnP Community</span>
+      </div>
+      <div class="ext-name">SharePoint Framework Toolkit</div>
+      <div class="ext-publisher">m365pnp.viva-connections-toolkit</div>
+      <div class="ext-desc">The most comprehensive all-in-one SPFx extension. Manages the full development lifecycle — from environment validation and guided scaffolding to deployment and CI/CD — without ever leaving VS Code.</div>
+      <ul class="ext-features">
+        <li>Guided scaffolding form for Web Parts, Extensions, ACEs &amp; Library Components</li>
+        <li>Environment validator checks Node.js, Gulp, Yeoman versions</li>
+        <li>PnP sample gallery with 500+ community templates</li>
+        <li>One-click deploy, retract, enable/disable from app catalogs</li>
+        <li>@spfx GitHub Copilot Chat Participant with /new, /code, /setup commands</li>
+        <li>Azure DevOps &amp; GitHub Actions CI/CD pipeline generator</li>
+        <li>Tenant-wide extension management view</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">4.x (2026)</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Installs</span>
+          <span class="ext-meta-val">18,800+</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★★ 5/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">License</span>
+          <span class="ext-meta-val">MIT (Open Source)</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>m365pnp.viva-connections-toolkit</div>
+    </div>
+
+    <!-- 2. SPFx Essentials -->
+    <div class="ext-card tier-1">
+      <div class="ext-header">
+        <span class="ext-num">#02</span>
+        <span class="ext-badge badge-util">Extension Pack</span>
+      </div>
+      <div class="ext-name">SPFx Essentials</div>
+      <div class="ext-publisher">eliostruyf.spfx-essentials</div>
+      <div class="ext-desc">A curated extension pack by MVP Elio Struyf bundling all essential SPFx extensions into one install. The fastest way to stand up a complete SPFx development environment from zero.</div>
+      <ul class="ext-features">
+        <li>Bundles SPFx Snippets, Localization, Task Runner, Remove Components</li>
+        <li>Includes Rencore Deploy, Script Check, &amp; Tenant-wide extensions</li>
+        <li>EditorConfig for consistent formatting across team</li>
+        <li>npm IntelliSense &amp; Path IntelliSense for import autocomplete</li>
+        <li>JSON to TypeScript interface converter</li>
+        <li>TypeScript Export All for easy module barrel exports</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">1.10+ (2025)</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Type</span>
+          <span class="ext-meta-val">Pack (10 ext)</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★★ 5/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">License</span>
+          <span class="ext-meta-val">MIT</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>eliostruyf.spfx-essentials</div>
+    </div>
+
+    <!-- 3. SharePoint Embedded -->
+    <div class="ext-card tier-1">
+      <div class="ext-header">
+        <span class="ext-num">#03</span>
+        <span class="ext-badge badge-ms">Microsoft Official</span>
+      </div>
+      <div class="ext-name">SharePoint Embedded</div>
+      <div class="ext-publisher">SharepointEmbedded.ms-sharepoint-embedded-vscode-extension</div>
+      <div class="ext-desc">Microsoft's official extension for building SharePoint Embedded applications. Manages Entra app registrations, container types, credentials, and sample app bootstrapping all from within VS Code.</div>
+      <ul class="ext-features">
+        <li>Hierarchical view of container types and owning Entra apps</li>
+        <li>One-click client secret &amp; self-signed certificate generation</li>
+        <li>Automated Postman collection environment file export</li>
+        <li>Guest app creation and trial container type management</li>
+        <li>Sample app loader with auto-populated runtime config files</li>
+        <li>OAuth-based tenant authentication via Microsoft 365 admin account</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">1.x (2025)</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Microsoft</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★☆ 4/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Requires</span>
+          <span class="ext-meta-val">M365 Admin</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>SharepointEmbedded.ms-sharepoint-embedded-vscode-extension</div>
+    </div>
+
+    <!-- 4. Rencore Deploy SPFx Package -->
+    <div class="ext-card tier-2">
+      <div class="ext-header">
+        <span class="ext-num">#04</span>
+        <span class="ext-badge badge-rencore">Rencore</span>
+      </div>
+      <div class="ext-name">Rencore Deploy SPFx Package</div>
+      <div class="ext-publisher">RencoreGmbH.vscode-spfx-deploy-package</div>
+      <div class="ext-desc">Enables right-click deployment of .sppkg files directly from VS Code's Explorer panel to SharePoint Online — no terminal commands required. Supports both tenant-wide and site collection app catalogs.</div>
+      <ul class="ext-features">
+        <li>Right-click .sppkg → Deploy to app catalog (context menu)</li>
+        <li>Alt+right-click for tenant-wide "Deploy to all SharePoint sites"</li>
+        <li>Site collection app catalog support</li>
+        <li>OAuth authentication — never stores your credentials</li>
+        <li>Configurable via rencoreSpfxDeploy.sharePointUrl setting</li>
+        <li>Auto-overwrites existing packages in catalog</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">1.1.0</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Rencore GmbH</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★★ 5/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Requires</span>
+          <span class="ext-meta-val">SPO Permissions</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>RencoreGmbH.vscode-spfx-deploy-package</div>
+    </div>
+
+    <!-- 5. Rencore Tenant-Wide -->
+    <div class="ext-card tier-2">
+      <div class="ext-header">
+        <span class="ext-num">#05</span>
+        <span class="ext-badge badge-rencore">Rencore</span>
+      </div>
+      <div class="ext-name">Rencore Tenant-wide SPFx Extension Deployment</div>
+      <div class="ext-publisher">RencoreGmbH.rencore-tenant-wide-spfx-extension-deployment</div>
+      <div class="ext-desc">Simplifies adding tenant-wide deployment configuration to SPFx extension projects. Generates the correct elements.xml and ClientSideInstance.xml entries needed for tenant-wide provisioning.</div>
+      <ul class="ext-features">
+        <li>Generates tenant-wide deployment XML configuration files</li>
+        <li>Supports Header, Footer, and ListView Command Set extension types</li>
+        <li>Validates component manifest compatibility before generating config</li>
+        <li>Works with Application Customizer extensions</li>
+        <li>Eliminates manual ClientSideInstance.xml authoring errors</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">1.x</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Rencore GmbH</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★★ 5/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Use Case</span>
+          <span class="ext-meta-val">SPFx Extensions</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>RencoreGmbH.rencore-tenant-wide-spfx-extension-deployment</div>
+    </div>
+
+    <!-- 6. Rencore SPFx Script Check -->
+    <div class="ext-card tier-2">
+      <div class="ext-header">
+        <span class="ext-num">#06</span>
+        <span class="ext-badge badge-rencore">Rencore</span>
+      </div>
+      <div class="ext-name">Rencore SPFx Script Check</div>
+      <div class="ext-publisher">rencore.vscode-spfx-script-checker</div>
+      <div class="ext-desc">Analyzes external scripts for performance impact before including them in SPFx solutions. Provides performance scores and generates ready-to-paste SPFx-compatible script loading snippets.</div>
+      <ul class="ext-features">
+        <li>Performance analysis of CDN-hosted external scripts</li>
+        <li>Generates SPFx-ready script include configuration code</li>
+        <li>Flags scripts that may slow down SharePoint page load</li>
+        <li>Identifies async/defer loading opportunities</li>
+        <li>Provides alternative CDN recommendations when available</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">1.x</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Rencore</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★☆ 4/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Use Case</span>
+          <span class="ext-meta-val">Performance</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>rencore.vscode-spfx-script-checker</div>
+    </div>
+
+    <!-- 7. SPFx Snippets -->
+    <div class="ext-card tier-3">
+      <div class="ext-header">
+        <span class="ext-num">#07</span>
+        <span class="ext-badge badge-util">Snippets</span>
+      </div>
+      <div class="ext-name">SPFx Snippets</div>
+      <div class="ext-publisher">eliostruyf.spfx-snippets</div>
+      <div class="ext-desc">Comprehensive code snippets for SPFx development by Elio Struyf. Covers TypeScript patterns, React components (hooks-based), SCSS Office UI Fabric grid utilities, and SPFx lifecycle method templates.</div>
+      <ul class="ext-features">
+        <li>React functional components with hooks (useState, useEffect, useContext)</li>
+        <li>Custom React hook blueprints</li>
+        <li>Office Fabric grid SCSS helpers (ms-Grid, ms-Grid-row, ms-Grid-col)</li>
+        <li>SPFx web part and extension class templates</li>
+        <li>Office UI Fabric color variable snippets</li>
+        <li>TypeScript interface and type scaffolding</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">3.x</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Elio Struyf</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★★ 5/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Trigger</span>
+          <span class="ext-meta-val">Ctrl+Space</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>eliostruyf.spfx-snippets</div>
+    </div>
+
+    <!-- 8. SPFx Localization -->
+    <div class="ext-card tier-3">
+      <div class="ext-header">
+        <span class="ext-num">#08</span>
+        <span class="ext-badge badge-util">i18n</span>
+      </div>
+      <div class="ext-name">SPFx Localization</div>
+      <div class="ext-publisher">eliostruyf.vscode-spfx-localization</div>
+      <div class="ext-desc">Streamlines managing localization string files in SPFx projects. Provides inline previews of localization key values and helps you create, find, and maintain string entries across multiple language files.</div>
+      <ul class="ext-features">
+        <li>Inline display of localization string values on hover</li>
+        <li>Navigate directly from usage to string definition</li>
+        <li>Create new localization entries from selected text</li>
+        <li>Supports multiple language file synchronization</li>
+        <li>Detects missing keys across locale files</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">2.x</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Elio Struyf</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★★ 5/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Use Case</span>
+          <span class="ext-meta-val">Multi-language</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>eliostruyf.vscode-spfx-localization</div>
+    </div>
+
+    <!-- 9. SPFx Task Runner -->
+    <div class="ext-card tier-3">
+      <div class="ext-header">
+        <span class="ext-num">#09</span>
+        <span class="ext-badge badge-util">Task Runner</span>
+      </div>
+      <div class="ext-name">SPFx Task Runner</div>
+      <div class="ext-publisher">eliostruyf.vscode-spfx-task-runner</div>
+      <div class="ext-desc">Adds a dedicated panel for running common Gulp tasks without touching the terminal. One-click access to build, bundle, package, serve, clean, and test commands directly from the VS Code sidebar.</div>
+      <ul class="ext-features">
+        <li>Sidebar panel with all common Gulp tasks as clickable buttons</li>
+        <li>gulp serve, bundle, package-solution, clean, test shortcuts</li>
+        <li>Supports --ship flag for production builds</li>
+        <li>Auto-detects SPFx project root and gulpfile</li>
+        <li>Task output streams to VS Code integrated terminal</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">1.x</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">Elio Struyf</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★☆ 4/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Use Case</span>
+          <span class="ext-meta-val">Build Automation</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>eliostruyf.vscode-spfx-task-runner</div>
+    </div>
+
+    <!-- 10. SPGo -->
+    <div class="ext-card tier-4">
+      <div class="ext-header">
+        <span class="ext-num">#10</span>
+        <span class="ext-badge badge-util">SharePoint IDE</span>
+      </div>
+      <div class="ext-name">SPGo</div>
+      <div class="ext-publisher">SiteGo.spgo</div>
+      <div class="ext-desc">A lightweight SharePoint IDE for VS Code. Enables direct file checkout, publishing, and retrieval from SharePoint document libraries and masterpage galleries — ideal for classic-to-modern migration projects alongside SPFx.</div>
+      <ul class="ext-features">
+        <li>Check out/publish files directly to SharePoint from VS Code</li>
+        <li>Retrieve files and folders from SharePoint document libraries</li>
+        <li>Compare local vs. remote SharePoint files</li>
+        <li>Supports SharePoint Online and On-Premises (2016/2019)</li>
+        <li>NTLM, Form-based, and ADFS authentication support</li>
+        <li>Useful for hybrid classic + SPFx development workflows</li>
+      </ul>
+      <div class="ext-meta">
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Latest Version</span>
+          <span class="ext-meta-val">2.x</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Publisher</span>
+          <span class="ext-meta-val">SiteGo</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Rating</span>
+          <span class="ext-meta-val stars">★★★★☆ 4/5</span>
+        </div>
+        <div class="ext-meta-item">
+          <span class="ext-meta-label">Use Case</span>
+          <span class="ext-meta-val">File Management</span>
+        </div>
+      </div>
+      <div class="cmd-label">Quick Install</div>
+      <div class="cmd-block"><span class="cmd-prefix">ext install </span>SiteGo.spgo</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 2: COMPARISON TABLE -->
+<div class="section" id="comparison">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <span class="section-title">Comparison Table</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Extension</th>
+          <th>Publisher</th>
+          <th>Version</th>
+          <th>Rating</th>
+          <th>Scaffold</th>
+          <th>Deploy</th>
+          <th>Snippets</th>
+          <th>AI/Copilot</th>
+          <th>CI/CD</th>
+          <th>On-Prem</th>
+          <th>Primary Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">01</span></td>
+          <td>
+            <div class="td-name">SPFx Toolkit</div>
+            <div class="td-id">m365pnp.viva-connections-toolkit</div>
+          </td>
+          <td style="color:var(--text2)">PnP Community</td>
+          <td class="td-version">4.x</td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Full lifecycle management, AI-assisted SPFx development</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">02</span></td>
+          <td>
+            <div class="td-name">SPFx Essentials</div>
+            <div class="td-id">eliostruyf.spfx-essentials</div>
+          </td>
+          <td style="color:var(--text2)">Elio Struyf</td>
+          <td class="td-version">1.10+</td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Bootstrap a complete SPFx dev environment in one install</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">03</span></td>
+          <td>
+            <div class="td-name">SharePoint Embedded</div>
+            <div class="td-id">SharepointEmbedded.ms-spe-vscode-ext</div>
+          </td>
+          <td style="color:var(--text2)">Microsoft</td>
+          <td class="td-version">1.x</td>
+          <td><span class="stars">★★★★☆</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Building file-storage apps with SharePoint Embedded API</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">04</span></td>
+          <td>
+            <div class="td-name">Rencore Deploy SPFx</div>
+            <div class="td-id">RencoreGmbH.vscode-spfx-deploy-package</div>
+          </td>
+          <td style="color:var(--text2)">Rencore GmbH</td>
+          <td class="td-version">1.1.0</td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Right-click .sppkg deployment to tenant &amp; site catalogs</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">05</span></td>
+          <td>
+            <div class="td-name">Rencore Tenant-wide</div>
+            <div class="td-id">RencoreGmbH.rencore-tenant-wide-spfx</div>
+          </td>
+          <td style="color:var(--text2)">Rencore GmbH</td>
+          <td class="td-version">1.x</td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Tenant-wide extension deployment config generation</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">06</span></td>
+          <td>
+            <div class="td-name">Rencore Script Check</div>
+            <div class="td-id">rencore.vscode-spfx-script-checker</div>
+          </td>
+          <td style="color:var(--text2)">Rencore</td>
+          <td class="td-version">1.x</td>
+          <td><span class="stars">★★★★☆</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Performance validation of external script dependencies</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">07</span></td>
+          <td>
+            <div class="td-name">SPFx Snippets</div>
+            <div class="td-id">eliostruyf.spfx-snippets</div>
+          </td>
+          <td style="color:var(--text2)">Elio Struyf</td>
+          <td class="td-version">3.x</td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">React hooks, SCSS Fabric grid, SPFx component templates</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">08</span></td>
+          <td>
+            <div class="td-name">SPFx Localization</div>
+            <div class="td-id">eliostruyf.vscode-spfx-localization</div>
+          </td>
+          <td style="color:var(--text2)">Elio Struyf</td>
+          <td class="td-version">2.x</td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">Multi-language string management and localization</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">09</span></td>
+          <td>
+            <div class="td-name">SPFx Task Runner</div>
+            <div class="td-id">eliostruyf.vscode-spfx-task-runner</div>
+          </td>
+          <td style="color:var(--text2)">Elio Struyf</td>
+          <td class="td-version">1.x</td>
+          <td><span class="stars">★★★★☆</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td class="use-case">One-click Gulp task execution from sidebar</td>
+        </tr>
+        <tr>
+          <td><span style="font-family:var(--mono);color:var(--text3)">10</span></td>
+          <td>
+            <div class="td-name">SPGo</div>
+            <div class="td-id">SiteGo.spgo</div>
+          </td>
+          <td style="color:var(--text2)">SiteGo</td>
+          <td class="td-version">2.x</td>
+          <td><span class="stars">★★★★☆</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="cross">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td class="use-case">File sync with SharePoint libraries; classic + modern hybrid</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3: SETUP GUIDE -->
+<div class="section" id="setup">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <span class="section-title">Step-by-Step Setup Guide for a New SPFx Project</span>
+  </div>
+
+  <div class="steps">
+
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Install Node.js 18 LTS (Required)</div>
+        <div class="step-desc">SPFx v1.20+ requires Node.js 18 LTS. Use a version manager (nvm or nvs) to switch Node versions per project — essential when you maintain multiple SPFx solutions with different framework requirements.</div>
+        <div class="code-block">
+<span class="c"># Install nvm (Windows)</span>
+winget install CoreyButler.NVMforWindows
+
+<span class="c"># Install nvm (macOS/Linux)</span>
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+<span class="c"># Install and use Node 18 LTS</span>
+nvm install 18
+nvm use 18
+node --version  <span class="c"># Should output v18.x.x</span>
+        </div>
+        <div class="warn-box"><strong>⚠ Version Matters:</strong> SPFx 1.20+ → Node 18 LTS. SPFx 1.17–1.19 → Node 16 LTS. Never use odd-numbered Node versions for SPFx.</div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Install Global SPFx Prerequisites</div>
+        <div class="step-desc">Install Gulp CLI and Yeoman globally, then the SharePoint Yeoman generator. These are the scaffolding and build toolchain foundations for every SPFx project.</div>
+        <div class="code-block">
+<span class="c"># Install global toolchain</span>
+npm install -g gulp-cli yo
+
+<span class="c"># Install SharePoint Yeoman generator (latest SPFx)</span>
+npm install -g @microsoft/generator-sharepoint
+
+<span class="c"># Verify installations</span>
+yo --version   <span class="c"># Should output 4.x+</span>
+gulp --version <span class="c"># Should output CLI version 2.x+</span>
+        </div>
+        <div class="tip-box"><strong>💡 SPFx Toolkit shortcut:</strong> After installing the SPFx Toolkit extension, use the <em>Validate local setup</em> button in the sidebar. It checks all dependencies and installs missing ones for you.</div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Install Core VS Code Extensions</div>
+        <div class="step-desc">Install the essential SPFx extensions. The fastest approach is installing the SPFx Essentials pack (which bundles #07–#09 and the Rencore tools), then adding SPFx Toolkit and SharePoint Embedded separately.</div>
+        <div class="code-block">
+<span class="c"># Option A: Install the full essentials pack (recommended for new developers)</span>
+code --install-extension eliostruyf.spfx-essentials
+
+<span class="c"># Option B: Install extensions individually</span>
+code --install-extension m365pnp.viva-connections-toolkit
+code --install-extension eliostruyf.spfx-snippets
+code --install-extension eliostruyf.vscode-spfx-localization
+code --install-extension eliostruyf.vscode-spfx-task-runner
+code --install-extension RencoreGmbH.vscode-spfx-deploy-package
+code --install-extension RencoreGmbH.rencore-tenant-wide-spfx-extension-deployment
+
+<span class="c"># For SharePoint Embedded development</span>
+code --install-extension SharepointEmbedded.ms-sharepoint-embedded-vscode-extension
+
+<span class="c"># Optional: classic SharePoint / hybrid workflows</span>
+code --install-extension SiteGo.spgo
+        </div>
+        <div class="tip-box"><strong>💡 Workspace recommendation:</strong> Add these to a <em>.vscode/extensions.json</em> file in your repo so teammates get prompted to install them automatically.</div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">4</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Add Recommended Extensions to Your Repository</div>
+        <div class="step-desc">Create a .vscode/extensions.json file to ensure all teammates get prompted to install the same extensions when they open the project in VS Code.</div>
+        <div class="code-block">
+<span class="c">// .vscode/extensions.json</span>
+{
+  <span class="s">"recommendations"</span>: [
+    <span class="s">"m365pnp.viva-connections-toolkit"</span>,
+    <span class="s">"eliostruyf.spfx-snippets"</span>,
+    <span class="s">"eliostruyf.vscode-spfx-localization"</span>,
+    <span class="s">"eliostruyf.vscode-spfx-task-runner"</span>,
+    <span class="s">"RencoreGmbH.vscode-spfx-deploy-package"</span>,
+    <span class="s">"RencoreGmbH.rencore-tenant-wide-spfx-extension-deployment"</span>,
+    <span class="s">"rencore.vscode-spfx-script-checker"</span>,
+    <span class="s">"dbaeumer.vscode-eslint"</span>,
+    <span class="s">"esbenp.prettier-vscode"</span>
+  ]
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">5</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Scaffold a New SPFx Project</div>
+        <div class="step-desc">Create a new project using the SPFx Toolkit guided form (recommended) or the Yeoman generator directly. The Toolkit also lets you clone from the PnP sample gallery with one click.</div>
+        <div class="code-block">
+<span class="c"># Via Yeoman (terminal) — interactive Q&A</span>
+mkdir my-spfx-webpart && cd my-spfx-webpart
+yo @microsoft/sharepoint
+
+<span class="c"># Recommended answers for a React web part:</span>
+<span class="c"># ? What is your solution name? → my-spfx-webpart</span>
+<span class="c"># ? Which type of client-side component to create? → WebPart</span>
+<span class="c"># ? What is your Web part name? → HelloWorld</span>
+<span class="c"># ? Which template would you like to use? → React</span>
+
+<span class="c"># Install dependencies after scaffolding</span>
+npm install
+        </div>
+        <div class="tip-box"><strong>💡 SPFx Toolkit alternative:</strong> Open the SPFx Toolkit sidebar → click <em>Create a new project</em> → fill in the guided form. You can also add PnPjs, Reusable Controls, and NVM config in a single step from the form.</div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">6</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Configure the Local Workbench &amp; Start Developing</div>
+        <div class="step-desc">Run the local development server to test your web part in the SharePoint Workbench. Use the SPFx Task Runner sidebar for one-click Gulp task execution, or run commands directly.</div>
+        <div class="code-block">
+<span class="c"># Start local development server + open SharePoint Workbench</span>
+gulp serve
+
+<span class="c"># For SPFx Extensions (must use live SharePoint page)</span>
+<span class="c"># Edit config/serve.json first, then:</span>
+gulp serve --nobrowser
+
+<span class="c"># Build for production</span>
+gulp bundle --ship
+gulp package-solution --ship
+
+<span class="c"># Clean build artifacts</span>
+gulp clean
+        </div>
+        <div class="warn-box"><strong>⚠ Extensions Note:</strong> Application Customizers, Header/Footer, and ListView Command Sets cannot use the local Workbench. Set the <em>pageUrl</em> in <em>config/serve.json</em> to a real SharePoint page URL.</div>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">7</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Deploy to SharePoint with Rencore Deploy SPFx Package</div>
+        <div class="step-desc">After running the production build, deploy the .sppkg package to SharePoint without leaving VS Code using the Rencore Deploy extension.</div>
+        <div class="code-block">
+<span class="c"># After building for production, the .sppkg is here:</span>
+<span class="v">./sharepoint/solution/my-spfx-webpart.sppkg</span>
+
+<span class="c"># To deploy via Rencore extension:</span>
+<span class="c"># 1. Right-click the .sppkg file in VS Code Explorer</span>
+<span class="c"># 2. Select "Deploy in the app catalog" from context menu</span>
+<span class="c"># 3. Enter your SharePoint tenant URL when prompted</span>
+<span class="c"># 4. Authenticate via OAuth in the browser window</span>
+<span class="c"># 5. Done! Package is uploaded and deployed</span>
+
+<span class="c"># For tenant-wide deployment: Alt+right-click → "Deploy to all SharePoint sites"</span>
+
+<span class="c"># To persist your tenant URL (skip the prompt next time):</span>
+<span class="c"># Add to .vscode/settings.json:</span>
+{
+  <span class="s">"rencoreSpfxDeploy.sharePointUrl"</span>: <span class="s">"https://yourtenant.sharepoint.com"</span>
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 8 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">8</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Set Up CI/CD Pipeline (Optional but Recommended)</div>
+        <div class="step-desc">Use SPFx Toolkit to generate a GitHub Actions or Azure DevOps pipeline with automated build and deploy steps. The extension creates the YAML file and guides you through the required app registration setup.</div>
+        <div class="code-block">
+<span class="c"># Via SPFx Toolkit UI:</span>
+<span class="c"># Open SPFx Toolkit sidebar → Actions panel</span>
+<span class="c"># Click "Create CI/CD workflow" → choose GitHub Actions or Azure DevOps</span>
+<span class="c"># Follow the guided Entra app registration steps</span>
+
+<span class="c"># Generated GitHub Actions workflow (.github/workflows/deploy.yml)</span>
+<span class="c"># — builds, packages, and deploys to SPO on push to main</span>
+
+<span class="c"># For Azure DevOps, the toolkit generates:</span>
+<span class="c"># azure-pipelines.yml with the correct node version matrix</span>
+<span class="c"># and app registration with certificate-based auth</span>
+        </div>
+        <div class="tip-box"><strong>💡 AI-assisted:</strong> In GitHub Copilot Chat, type <em>@spfx /code</em> to get context-aware help with your SPFx component code, or <em>@spfx /setup</em> for guided environment troubleshooting from the SPFx Toolkit chat participant.</div>
+      </div>
+    </div>
+
+    <!-- Step 9 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">9</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Add Localization Support</div>
+        <div class="step-desc">SPFx projects include localization files by default. Use the SPFx Localization extension to manage string entries with inline previews and navigate between usage and definition seamlessly.</div>
+        <div class="code-block">
+<span class="c"># Localization files are in: src/webparts/&lt;name&gt;/loc/</span>
+<span class="c"># en-us.js  ←  English strings (default)</span>
+<span class="c"># mystrings.d.ts  ←  TypeScript interface</span>
+
+<span class="c"># Usage in component (hover over key to see value inline):</span>
+import * as strings from <span class="s">'HelloWorldWebPartStrings'</span>;
+<span class="c">// strings.PropertyPaneDescription</span>
+<span class="c">// strings.BasicGroupName</span>
+
+<span class="c"># Add a new locale file for French:</span>
+<span class="c"># Create src/webparts/helloWorld/loc/fr-fr.js</span>
+<span class="c"># SPFx Localization ext will highlight missing keys automatically</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 10 -->
+    <div class="step">
+      <div class="step-left">
+        <div class="step-num-circle">10</div>
+      </div>
+      <div class="step-body">
+        <div class="step-title">Manage &amp; Upgrade Existing Projects</div>
+        <div class="step-desc">For existing SPFx projects, use SPFx Toolkit's upgrade and validation actions to keep solutions current with the latest SPFx framework versions without manual dependency hunting.</div>
+        <div class="code-block">
+<span class="c"># Validate your project's dependencies (SPFx Toolkit sidebar → Actions):</span>
+<span class="c"># "Validate project" → lists all outdated dependencies</span>
+
+<span class="c"># Upgrade SPFx version using CLI for Microsoft 365 (under the hood):</span>
+<span class="c"># SPFx Toolkit sidebar → Actions → "Upgrade project"</span>
+<span class="c"># Generates a migration report with exact npm commands to run</span>
+
+<span class="c"># Or manually via CLI for Microsoft 365:</span>
+npm install -g @pnp/cli-microsoft365
+m365 spfx project upgrade --output md > upgrade-report.md
+        </div>
+        <div class="tag-row">
+          <span class="tag">SPFx v1.20</span>
+          <span class="tag">Node 18 LTS</span>
+          <span class="tag">React 17+</span>
+          <span class="tag">TypeScript 5.x</span>
+          <span class="tag">Gulp 4.x</span>
+          <span class="tag">Webpack 5</span>
+          <span class="tag">Fluent UI v8</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    SPFx VS Code Extension Reference · April 2026 · Data sourced from VS Code Marketplace &amp; official documentation
+  </div>
+  <div class="footer-right">
+    SPFx Toolkit: pnp.github.io/vscode-viva · SharePoint Embedded: learn.microsoft.com
+  </div>
+</div>
+
+<script>
+  // Smooth scroll for nav tabs
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(tab.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Update active tab on scroll
+  const sections = ['extensions','comparison','setup'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 100) current = id;
+    });
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
