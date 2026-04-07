@@ -16,7 +16,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify site files
+        run: |
+          test -f index.html
+          test -f css/style.css
+
+      - name: Smoke test homepage
+        run: |
+          python3 -m http.server 8080 >/tmp/site.log 2>&1 &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
+          sleep 2
+          curl -fsS http://127.0.0.1:8080/ | grep -q "Top 10 VS Code Extensions for SPFx Development"
+
   deploy:
+    needs: validate
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
