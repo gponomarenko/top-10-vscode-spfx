@@ -2,6 +2,8 @@
 
 A simple static website listing the top 10 Visual Studio Code extensions every SharePoint Framework (SPFx) developer should have.
 
+LIVE: [top-10-vscode-spfx](https://gponomarenko.github.io/top-10-vscode-spfx/)
+
 ## Repository structure
 
 ```
